@@ -8,8 +8,9 @@ import org.springframework.stereotype.Repository;
 public interface ClienteRepository extends JpaRepository<ClienteEntity,Integer> {
 
 
-    ClienteEntity findClienteEntityByCorreo(String correo);
 
+    ClienteEntity findClienteEntityByCorreo(String correo);
+    ClienteEntity findClienteEntityByIdCliente( int idCliente);
     ClienteEntity findClienteEntityByCorreoAndContrasena (String correo, String contrasena);
 
 

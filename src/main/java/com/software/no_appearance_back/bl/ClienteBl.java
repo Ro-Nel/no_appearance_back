@@ -58,4 +58,9 @@ public class ClienteBl {
         }
     }
 
+    public ClienteEntity clientePorId(int idCliente) {
+        ClienteEntity clienteEntity = clienteRepository.findClienteEntityByIdCliente(idCliente);
+        clienteEntity.setNacimiento(null);
+        return clienteEntity;
+    }
 }

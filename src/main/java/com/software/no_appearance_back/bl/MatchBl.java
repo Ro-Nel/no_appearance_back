@@ -2,6 +2,8 @@ package com.software.no_appearance_back.bl;
 
 import com.software.no_appearance_back.dao.*;
 import com.software.no_appearance_back.domain.*;
+import com.software.no_appearance_back.model.Match;
+import com.software.no_appearance_back.model.MatchSubcategoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +29,21 @@ public class MatchBl {
         this.clienteSubcategoriaRepository = clienteSubcategoriaRepository;
     }
 
-    public List<MatchiEntity> listarMatchesPorIdCliente(int idCliente) {
+    public List<Match> listarMatchesPorIdCliente(int idCliente) {
         List<MatchiEntity> matchEntityList= new ArrayList<>();
         crearMatch(idCliente);
         matchEntityList = matchRepository.findMatchEntityByEstadoAndIdCliente1OrIdCliente2(1, idCliente,idCliente);
-        return matchEntityList;
+        List<Match> matchList = new ArrayList<>();
+        String nameCliente = "";
+        for (MatchiEntity m : matchEntityList) {
+            if(idCliente == m.getIdCliente1())
+                nameCliente = matchRepository.findNameByIdCliente(m.getIdCliente2(),idCliente);
+            else
+                nameCliente = matchRepository.findNameByIdCliente(m.getIdCliente1(),idCliente);
+            Match match = new Match(m.getIdMatch(),m.getIdCliente1(),m.getIdCliente2(), nameCliente);
+            matchList.add(match);
+        }
+        return matchList;
     }
 
     private void crearMatch(int idCliente) {
@@ -99,9 +111,16 @@ public class MatchBl {
         return matchEntity;
     }
 
-    public List<MatchSubcategoriaEntity> matchDetallePorIdClientes(int idCliente1, int idCliente2) {
+    public List<MatchSubcategoria> matchDetallePorIdClientes(int idCliente1, int idCliente2) {
         List<MatchSubcategoriaEntity> matchSubcategoriaEntityList = new ArrayList<>();
         matchSubcategoriaEntityList = matchSubcategoriaRepository.findMatchSubcategoriaListByIdClientes(idCliente1,idCliente2);
-        return matchSubcategoriaEntityList;
+        List<MatchSubcategoria> matchSubcategoriaList = new ArrayList<>();
+        for (MatchSubcategoriaEntity ms:matchSubcategoriaEntityList) {
+            SubcategoriaEntity sce = subcategoriaRepository.findByIdSubcategoria(ms.getIdSubcategoria());
+            MatchSubcategoria matchSubcategoria = new MatchSubcategoria(ms.getMatchSubcategoria(), ms.getIdMatch(), ms.getIdSubcategoria(),sce.getSubcategoria(), sce.getFoto());
+            matchSubcategoriaList.add(matchSubcategoria);
+        }
+
+        return matchSubcategoriaList;
     }
 }

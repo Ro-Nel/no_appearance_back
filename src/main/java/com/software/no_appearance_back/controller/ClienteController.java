@@ -43,4 +43,10 @@ public class ClienteController {
             return new ResponseEntity(-1, HttpStatus.ACCEPTED);
         }
     }
+
+    @RequestMapping(value = "/clientePorId/{idCliente}", method = RequestMethod.GET)
+    public ResponseEntity clientePorId(@PathVariable(value = "idCliente")int idCliente) {
+        ClienteEntity clienteEntity =clienteBl.clientePorId(idCliente);
+        return new ResponseEntity(clienteEntity, HttpStatus.ACCEPTED);
+    }
 }
