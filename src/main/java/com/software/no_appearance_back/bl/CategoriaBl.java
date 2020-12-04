@@ -1,11 +1,9 @@
 package com.software.no_appearance_back.bl;
 
 import com.software.no_appearance_back.dao.CategoriaRepository;
-import com.software.no_appearance_back.dao.ClienteRepository;
 import com.software.no_appearance_back.dao.ClienteSubcategoriaRepository;
 import com.software.no_appearance_back.dao.SubcategoriaRepository;
 import com.software.no_appearance_back.domain.CategoriaEntity;
-import com.software.no_appearance_back.domain.ClienteEntity;
 import com.software.no_appearance_back.domain.ClienteSubcategoriaEntity;
 import com.software.no_appearance_back.domain.SubcategoriaEntity;
 import org.springframework.beans.factory.annotation.Autowired;

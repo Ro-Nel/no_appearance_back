@@ -2,9 +2,7 @@ package com.software.no_appearance_back.controller;
 
 
 import com.software.no_appearance_back.bl.CategoriaBl;
-import com.software.no_appearance_back.bl.ClienteBl;
 import com.software.no_appearance_back.domain.CategoriaEntity;
-import com.software.no_appearance_back.domain.ClienteEntity;
 import com.software.no_appearance_back.domain.ClienteSubcategoriaEntity;
 import com.software.no_appearance_back.domain.SubcategoriaEntity;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,10 +2,8 @@ package com.software.no_appearance_back.controller;
 
 
 import com.software.no_appearance_back.bl.ChatBl;
-import com.software.no_appearance_back.bl.MatchBl;
 import com.software.no_appearance_back.domain.ChatEntity;
-import com.software.no_appearance_back.domain.ClienteEntity;
-import com.software.no_appearance_back.domain.MatchEntity;
+import com.software.no_appearance_back.domain.MatchiEntity;
 import com.software.no_appearance_back.domain.MensajeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +25,7 @@ public class ChatController {
 
 
     @RequestMapping(value = "/chat/guardar", method = RequestMethod.POST)
-    public ResponseEntity registrarCliente(@RequestBody MatchEntity matchEntity, BindingResult bindingResult){
+    public ResponseEntity registrarCliente(@RequestBody MatchiEntity matchEntity, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
         }

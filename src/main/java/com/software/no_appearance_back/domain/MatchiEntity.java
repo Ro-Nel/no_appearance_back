@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "match", schema = "no_appearance", catalog = "")
-public class MatchEntity {
+@Table(name = "matchi", schema = "no_appearance", catalog = "")
+public class MatchiEntity {
     private int idMatch;
     private int idCliente1;
     private int idCliente2;
@@ -112,7 +112,7 @@ public class MatchEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MatchEntity that = (MatchEntity) o;
+        MatchiEntity that = (MatchiEntity) o;
         return idMatch == that.idMatch && idCliente1 == that.idCliente1 && idCliente2 == that.idCliente2 && estado == that.estado && txId == that.txId && txUser == that.txUser && Objects.equals(txHost, that.txHost) && Objects.equals(txDate, that.txDate) && Objects.equals(txUpdate, that.txUpdate);
     }
 

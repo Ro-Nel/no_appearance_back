@@ -24,7 +24,7 @@ public class ChatBl {
         this.mensajeRepository = mensajeRepository;
     }
 
-    public void registrarChat(MatchEntity matchEntity) {
+    public void registrarChat(MatchiEntity matchEntity) {
         ChatEntity chatEntity = new ChatEntity();
         chatEntity.setIdCliente1(matchEntity.getIdCliente1());
         chatEntity.setIdCliente2(matchEntity.getIdCliente2());

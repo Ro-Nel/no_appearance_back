@@ -27,42 +27,44 @@ public class MatchBl {
         this.clienteSubcategoriaRepository = clienteSubcategoriaRepository;
     }
 
-    public List<MatchEntity> listarMatchesPorIdCliente(int idCliente) {
-        List<MatchEntity> matchEntityList= new ArrayList<>();
+    public List<MatchiEntity> listarMatchesPorIdCliente(int idCliente) {
+        List<MatchiEntity> matchEntityList= new ArrayList<>();
         crearMatch(idCliente);
         matchEntityList = matchRepository.findMatchEntityByEstadoAndIdCliente1OrIdCliente2(1, idCliente,idCliente);
         return matchEntityList;
     }
 
     private void crearMatch(int idCliente) {
-        List<MatchEntity> matchEntityList= new ArrayList<>();
+        List<MatchiEntity> matchEntityList= new ArrayList<>();
         // sacar las cliente_subcategorias del cliente
         List<ClienteSubcategoriaEntity> subcategoriasCliente=  clienteSubcategoriaRepository.findAllByIdCliente(idCliente);
 
         // guardar las cliente_subcategorias que coincidadn con las cliente_subcategorias del cliente
         List<ClienteSubcategoriaEntity> subcategoriasClientesGeneales=  clienteSubcategoriaRepository.findAll();
 
-        MatchEntity matchEntity = new MatchEntity();
+        MatchiEntity matchEntity = new MatchiEntity();
         matchEntity.setIdCliente1(idCliente);
         matchEntity.setEstado(1);
-
 
         for (int i = 0; i < subcategoriasCliente.size(); i++) {
             for (int j = 0; j < subcategoriasClientesGeneales.size(); j++) {
                 int idCliente2 =subcategoriasClientesGeneales.get(j).getIdCliente();
 
-                boolean existematchsubcategoriaprevia = (matchSubcategoriaRepository.findMatchSubcategoriaByIdClientes(idCliente,idCliente2)!=null);
-                if (!existematchsubcategoriaprevia){
-                    boolean existematchprevio = (matchRepository.findMatchEntityByIdCliente1OrIdCliente2(idCliente,idCliente2)!=null);
-                    if (!existematchprevio){
+                if(idCliente!=idCliente2)
+                {
+                    boolean existematchsubcategoriaprevia = (matchSubcategoriaRepository.findMatchSubcategoriaByIdClientes(idCliente,idCliente2,subcategoriasCliente.get(i).getIdSubcategoria())!=null);
+                    if (!existematchsubcategoriaprevia){
                         boolean coincidencia = subcategoriasCliente.get(i).getIdSubcategoria() == subcategoriasClientesGeneales.get(j).getIdSubcategoria();
                         if(coincidencia){
-                            matchEntity.setIdCliente2(idCliente);
-                            matchEntity = transaccion(matchEntity);
-                            matchRepository.save(matchEntity);
+                            boolean existematchprevio = (matchRepository.findMatchEntityByIdCliente1OrIdCliente2(idCliente,idCliente2)!=null);
+                            if (!existematchprevio){
+                                matchEntity.setIdCliente2(idCliente2);
+                                matchEntity = transaccion(matchEntity);
+                                matchRepository.save(matchEntity);
+                            }
+                            guardarMatchSubcategoria(idCliente, idCliente2,subcategoriasCliente.get(i).getIdSubcategoria());
                         }
-                    } // if !existematchprevio
-                    guardarMatchSubcategoria(idCliente, idCliente2,subcategoriasCliente.get(i).getIdSubcategoria());
+                    }
                 }
 
             } // for j
@@ -74,10 +76,20 @@ public class MatchBl {
         MatchSubcategoriaEntity matchSubcategoriaEntity= new MatchSubcategoriaEntity();
         matchSubcategoriaEntity.setIdMatch(idMatch);
         matchSubcategoriaEntity.setIdSubcategoria(idSubcategoria);
+        matchSubcategoriaEntity= transaccionMatchSubcategoriaEntity(matchSubcategoriaEntity);
         matchSubcategoriaRepository.save(matchSubcategoriaEntity);
     }
 
-    private MatchEntity transaccion(MatchEntity matchEntity) {
+    private MatchSubcategoriaEntity transaccionMatchSubcategoriaEntity(MatchSubcategoriaEntity matchSubcategoriaEntity) {
+        matchSubcategoriaEntity.setTxId(0); // Id de la transaccion
+        matchSubcategoriaEntity.setTxHost("192.168.0.1"); // Direccion Ip
+        matchSubcategoriaEntity.setTxUser(0);
+        matchSubcategoriaEntity.setTxDate(new Timestamp(System.currentTimeMillis())); // Fecha Actual
+        matchSubcategoriaEntity.setTxUpdate(new Date(System.currentTimeMillis()));
+        return matchSubcategoriaEntity;
+    }
+
+    private MatchiEntity transaccion(MatchiEntity matchEntity) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         matchEntity.setTxId(0); // Id de la transaccion
         matchEntity.setTxHost("192.168.0.1"); // Direccion Ip

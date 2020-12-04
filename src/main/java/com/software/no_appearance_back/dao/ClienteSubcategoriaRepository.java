@@ -1,6 +1,5 @@
 package com.software.no_appearance_back.dao;
 
-import com.software.no_appearance_back.domain.AdministradorEntity;
 import com.software.no_appearance_back.domain.ClienteSubcategoriaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
