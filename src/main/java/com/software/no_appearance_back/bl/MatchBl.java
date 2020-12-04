@@ -98,4 +98,10 @@ public class MatchBl {
         matchEntity.setTxUpdate(new Date(System.currentTimeMillis()));
         return matchEntity;
     }
+
+    public List<MatchSubcategoriaEntity> matchDetallePorIdClientes(int idCliente1, int idCliente2) {
+        List<MatchSubcategoriaEntity> matchSubcategoriaEntityList = new ArrayList<>();
+        matchSubcategoriaEntityList = matchSubcategoriaRepository.findMatchSubcategoriaListByIdClientes(idCliente1,idCliente2);
+        return matchSubcategoriaEntityList;
+    }
 }
