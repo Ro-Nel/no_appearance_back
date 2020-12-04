@@ -1,10 +1,12 @@
-package com.software.no_appearance_back.controller;
+package com.software.no_appearance_back.api;
 
 
 import com.software.no_appearance_back.bl.ChatBl;
 import com.software.no_appearance_back.domain.ChatEntity;
 import com.software.no_appearance_back.domain.MatchiEntity;
 import com.software.no_appearance_back.domain.MensajeEntity;
+import com.software.no_appearance_back.model.Chat;
+import com.software.no_appearance_back.model.Match;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,20 +26,28 @@ public class ChatController {
     }
 
 
+    @RequestMapping(value = "/agregarChatPorIdMatch/{idMacth}", method = RequestMethod.GET)
+    public ResponseEntity agregarChatPorIdMatch(@PathVariable(value = "idMacth")int idMacth) {
+        chatBl.agregarChatPorIdMatch(idMacth);
+        return new ResponseEntity("Creado", HttpStatus.CREATED);
+    }
+
+
     @RequestMapping(value = "/chat/guardar", method = RequestMethod.POST)
-    public ResponseEntity registrarCliente(@RequestBody MatchiEntity matchEntity, BindingResult bindingResult){
+    public ResponseEntity registrarCliente(@RequestBody Match match, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
         }
-        chatBl.registrarChat(matchEntity);
+        chatBl.registrarChat(match);
         return new ResponseEntity("Creado", HttpStatus.CREATED);
     }
 
 
     @RequestMapping(value = "/listarchats/{idCliente}", method = RequestMethod.GET)
     public ResponseEntity listarChatsPorIdCliente(@PathVariable(value = "idCliente")int idCliente) {
-        List<ChatEntity> chatEntityList= chatBl.listarChatsPorIdCliente(idCliente);
-        return new ResponseEntity(chatEntityList, HttpStatus.ACCEPTED);
+        List<Chat> chatList= chatBl.listarChatsPorIdCliente(idCliente);
+        System.out.println(chatList.get(0).getNameCliente());
+        return new ResponseEntity(chatList, HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/mensajeschat",method = RequestMethod.POST)

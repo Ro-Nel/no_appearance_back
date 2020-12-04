@@ -25,6 +25,8 @@ public interface MatchRepository extends JpaRepository<MatchiEntity,Integer> {
             nativeQuery = true)
     String findNameByIdCliente(int idCExterno, int isCApp);
 
+    MatchiEntity findByIdMatch(int idMatch);
+
 
 
 }

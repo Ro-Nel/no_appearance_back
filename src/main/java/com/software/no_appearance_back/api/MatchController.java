@@ -1,9 +1,7 @@
-package com.software.no_appearance_back.controller;
+package com.software.no_appearance_back.api;
 
 
 import com.software.no_appearance_back.bl.MatchBl;
-import com.software.no_appearance_back.domain.MatchSubcategoriaEntity;
-import com.software.no_appearance_back.domain.MatchiEntity;
 import com.software.no_appearance_back.model.Match;
 import com.software.no_appearance_back.model.MatchSubcategoria;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ public class MatchController {
     public MatchController(MatchBl matchBl) {
         this.matchBl = matchBl;
     }
-
 
 
     @RequestMapping(value = "/listarmatches/{idCliente}", method = RequestMethod.GET)

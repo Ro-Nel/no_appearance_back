@@ -1,4 +1,4 @@
-package com.software.no_appearance_back.controller;
+package com.software.no_appearance_back.api;
 
 
 import com.software.no_appearance_back.bl.CategoriaBl;
@@ -27,7 +27,7 @@ public class CategoriaController {
     @RequestMapping(value = "/listarcategorias", method = RequestMethod.GET)
     public ResponseEntity listarcategorias(){
         List<CategoriaEntity> categoriaEntityList= categoriaBl.listarcategorias();
-        return new ResponseEntity(categoriaEntityList, HttpStatus.CREATED);
+        return new ResponseEntity(categoriaEntityList, HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/listarsubcategorias/{idCategoria}", method = RequestMethod.GET)

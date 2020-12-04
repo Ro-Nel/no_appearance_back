@@ -30,7 +30,7 @@ public class ClienteBl {
 
     public void registrarCliente(ClienteEntity clienteEntity) {
         clienteEntity = transaccion(clienteEntity);
-        clienteEntity.setNacimiento(new Date(System.currentTimeMillis()));
+        clienteEntity.setNacimiento(new Date(System.currentTimeMillis())); //TODO arreglar la fecha
         clienteRepository.save(clienteEntity);
     }
 
@@ -60,7 +60,7 @@ public class ClienteBl {
 
     public ClienteEntity clientePorId(int idCliente) {
         ClienteEntity clienteEntity = clienteRepository.findClienteEntityByIdCliente(idCliente);
-        clienteEntity.setNacimiento(null);
+        clienteEntity.setNacimiento(null); //TODO borrar con la creacion del calendario
         return clienteEntity;
     }
 }
