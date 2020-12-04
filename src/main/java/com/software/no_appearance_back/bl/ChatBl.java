@@ -65,13 +65,15 @@ public class ChatBl {
     }
 
 
-    public List<MensajeEntity> mensajesChat(ChatEntity chatEntity) {
-        List<MensajeEntity> mensajeEntityList= mensajeRepository.findAllByIdChat(chatEntity.getIdChat());
+    public List<MensajeEntity> mensajesChat(int idChatEntity) {
+        List<MensajeEntity> mensajeEntityList= mensajeRepository.findAllByIdChat(idChatEntity);
         return mensajeEntityList;
     }
 
     public void mensajeschatguardar(MensajeEntity mensajeEntity) {
         mensajeEntity = transaccion(mensajeEntity);
+        System.out.println(mensajeEntity.getMensaje()+"    id    "+mensajeEntity.getIdChat());
+
         mensajeRepository.save(mensajeEntity);
     }
 
@@ -87,12 +89,15 @@ public class ChatBl {
 
     public void agregarChatPorIdMatch(int idMacth) {
         MatchiEntity matchiEntity = matchRepository.findByIdMatch(idMacth);
+        matchiEntity.setEstado(0);
+        matchRepository.save(matchiEntity);
         ChatEntity chatEntity = new ChatEntity();
         chatEntity.setEstado(1);
         chatEntity.setIdCliente1(matchiEntity.getIdCliente1());
         chatEntity.setIdCliente2(matchiEntity.getIdCliente2());
         chatEntity= transaccionChatEntity(chatEntity);
         chatRepository.save(chatEntity);
+
 
     }
 

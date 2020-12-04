@@ -14,12 +14,12 @@ public class Chat {
         this.nameCliente = nameCliente;
     }
 
-    public int getIdMatch() {
+    public int getIdChat() {
         return idChat;
     }
 
-    public void setIdMatch(int idMatch) {
-        this.idChat = idMatch;
+    public void setIdChat(int idChat) {
+        this.idChat = idChat;
     }
 
     public int getIdCliente1() {

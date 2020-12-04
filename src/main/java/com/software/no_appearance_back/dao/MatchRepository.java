@@ -9,7 +9,13 @@ import java.util.List;
 
 @Repository
 public interface MatchRepository extends JpaRepository<MatchiEntity,Integer> {
-    List<MatchiEntity> findMatchEntityByEstadoAndIdCliente1OrIdCliente2(int estado, int idC1, int idC2);
+
+    @Query(
+            value = "SELECT * FROM matchi p WHERE " +
+                    "p.estado = ?1 AND " +
+                    "(p.id_cliente1 = ?2  OR p.id_cliente2 = ?2) ",
+            nativeQuery = true)
+    List<MatchiEntity> findMatchEntityByEstadoAndIdCliente1OrIdCliente2(int estado, int idC);
 
     @Query(
             value = "SELECT * FROM matchi p WHERE " +

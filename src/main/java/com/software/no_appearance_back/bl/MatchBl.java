@@ -32,7 +32,7 @@ public class MatchBl {
     public List<Match> listarMatchesPorIdCliente(int idCliente) {
         List<MatchiEntity> matchEntityList= new ArrayList<>();
         crearMatch(idCliente);
-        matchEntityList = matchRepository.findMatchEntityByEstadoAndIdCliente1OrIdCliente2(1, idCliente,idCliente);
+        matchEntityList = matchRepository.findMatchEntityByEstadoAndIdCliente1OrIdCliente2(1, idCliente);
         List<Match> matchList = new ArrayList<>();
         String nameCliente = "";
         for (MatchiEntity m : matchEntityList) {

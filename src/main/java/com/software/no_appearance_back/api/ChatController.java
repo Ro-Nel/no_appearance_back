@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -50,12 +51,10 @@ public class ChatController {
         return new ResponseEntity(chatList, HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "/mensajeschat",method = RequestMethod.POST)
-    public ResponseEntity mensajesChat(@RequestBody ChatEntity chatEntity, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
-        }
-        List<MensajeEntity>  mensajeEntityList=  chatBl.mensajesChat(chatEntity);
+    @RequestMapping(value = "/mensajeschat/{idChatEntity}",method = RequestMethod.GET)
+    public ResponseEntity mensajesChat(@PathVariable(value = "idChatEntity")int idChatEntity) {
+        List<MensajeEntity>  mensajeEntityList=  new ArrayList<>();
+        mensajeEntityList=  chatBl.mensajesChat(idChatEntity);
         return new ResponseEntity(mensajeEntityList, HttpStatus.CREATED);
     }
 
