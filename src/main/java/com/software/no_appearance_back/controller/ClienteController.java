@@ -36,9 +36,11 @@ public class ClienteController {
         if(bindingResult.hasErrors()){
             return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
         }
-        if(clienteBl.checkLogin(clienteEntity.getCorreo(),clienteEntity.getContrasena()))
-            return new ResponseEntity("Autenticado", HttpStatus.ACCEPTED);
-        else
-            return new ResponseEntity("No autenticado", HttpStatus.ACCEPTED);
+        if(clienteBl.checkLogin(clienteEntity.getCorreo(),clienteEntity.getContrasena())) {
+            int idCliente = clienteBl.getID(clienteEntity);
+            return new ResponseEntity(idCliente, HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity(-1, HttpStatus.ACCEPTED);
+        }
     }
 }

@@ -10,5 +10,7 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity,Integer> 
 
     ClienteEntity findClienteEntityByCorreo(String correo);
 
+    ClienteEntity findClienteEntityByCorreoAndContrasena (String correo, String contrasena);
+
 
 }

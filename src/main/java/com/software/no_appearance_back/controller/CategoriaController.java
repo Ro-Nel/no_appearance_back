@@ -39,11 +39,11 @@ public class CategoriaController {
     }
 
     @RequestMapping(value = "/clientesubcategoria/guardar", method = RequestMethod.POST)
-    public ResponseEntity clientesubcategoriaGuardar(@RequestBody List<ClienteSubcategoriaEntity> clienteSubcategoriaEntityList, BindingResult bindingResult){
+    public ResponseEntity clientesubcategoriaGuardar(@RequestBody ClienteSubcategoriaEntity clienteSubcategoriaEntity, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
         }
-        categoriaBl.clientesubcategoriaGuardar(clienteSubcategoriaEntityList);
+        categoriaBl.clientesubcategoriaGuardar(clienteSubcategoriaEntity);
         return new ResponseEntity("Creado", HttpStatus.CREATED);
     }
 

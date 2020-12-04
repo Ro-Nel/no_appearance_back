@@ -44,12 +44,9 @@ public class CategoriaBl {
     }
 
 
-    public void clientesubcategoriaGuardar(List<ClienteSubcategoriaEntity> clienteSubcategoriaEntityList) {
-        for (int i = 0; i < clienteSubcategoriaEntityList.size(); i++) {
-            ClienteSubcategoriaEntity clienteSubcategoriaEntity = clienteSubcategoriaEntityList.get(i);
+    public void clientesubcategoriaGuardar(ClienteSubcategoriaEntity clienteSubcategoriaEntity) {
             clienteSubcategoriaEntity = transaccion(clienteSubcategoriaEntity);
             clienteSubcategoriaRepository.save(clienteSubcategoriaEntity);
-        }
     }
 
 
