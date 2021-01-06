@@ -31,6 +31,16 @@ public class ClienteController {
         return new ResponseEntity("Creado", HttpStatus.CREATED);
     }
 
+    @RequestMapping(value = "/registraradm", method = RequestMethod.POST)
+    public ResponseEntity registrarAdm(@RequestBody ClienteEntity clienteEntity, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
+        }
+        clienteBl.registrarCliente(clienteEntity);
+        return new ResponseEntity("Creado", HttpStatus.CREATED);
+    }
+
+
     @RequestMapping(value = "/logincliente", method = RequestMethod.POST)
     public ResponseEntity logincliente(@RequestBody ClienteEntity clienteEntity, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
